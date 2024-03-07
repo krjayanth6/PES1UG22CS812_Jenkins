@@ -17,7 +17,7 @@ pipeline {
         stage('Deploy') {
             // Define deployment steps if needed
             steps {
-                // Example: deploy the binary to a server
+                echo 'deploy'
             }
         }
     }
