@@ -1,15 +1,18 @@
 pipeline {
     agent any
+    
     stages {
         stage('Build') {
             steps {
-                build 'PES1UG22CS812-1'
-                sh 'g++ main.cpp -o output'
+                script {
+                    sh 'g++ main.cpp -o output'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh './output'
+                // Intentional error: Execute a non-existent script
+                sh './non_existent_script.sh'
             }
         }
         stage('Deploy') {
@@ -21,7 +24,9 @@ pipeline {
     
     post {
         failure {
-            error 'Pipeline failed'
+            script {
+                error 'Pipeline failed'
+            }
         }
     }
 }
