@@ -1,21 +1,18 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
-                // Compile the .cpp file using a shell script
-                sh 'g++ -o output_binary YOUR_SRN-1.cpp'
+                build 'PES1UG22CS812-1'
+                sh 'g++ main.cpp -o output'
             }
         }
         stage('Test') {
             steps {
-                // Print the output of the compiled binary
-                sh './output_binary'
+                sh './output'
             }
         }
         stage('Deploy') {
-            // Define deployment steps if needed
             steps {
                 echo 'deploy'
             }
@@ -23,9 +20,8 @@ pipeline {
     }
     
     post {
-        always {
-            // Display 'pipeline failed' in case of any errors within the pipeline
-            echo 'Pipeline failed'
+        failure {
+            error 'Pipeline failed'
         }
     }
 }
